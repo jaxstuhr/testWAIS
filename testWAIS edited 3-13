@@ -1,0 +1,38 @@
+//vmmhz1m     = wais_pulser_mags;
+    // SAW: REPLACE THIS CODE WITH WAIS PULSER MODEL
+    // ELECTRIC FIELD AT 1 m
+    vmmhz1m     = wais_pulser_mags; //JS: edited
+    // SAW: REPLACE THIS CODE WITH WAIS PULSER MODEL --> CONFUSING CHECK WITH EMAILS / LINDA ABOUT WHAT THIS MEANS
+    // ELECTRIC FIELD AT THE PAYLOAD CORRECTED FOR 1/R FACTOR. REPLACE NEUTRINO POSITION WITH WAIS POSITION AND VERIFY THAT
+    // bn1->r_bn is the position of ANITA
+    vmmhz_max   = ScaleVmMHz(vmmhz1m, interaction1->posnu, bn1->r_bn);//JS: looks to me like "interaction1->posnu" is already the Wais position, "bn1->r_bn" is balloon position and radius 
+
+    // TEMPORARY UNTIL WE HAVE MINI ALFA MODEL
+    // FIRST PASS AT MINI ALFA MODEL
+      
+    // here we get the array vmmhz by taking vmmhz1m_max (signal at lowest frequency bin) and
+    //   vmmhz_max (signal at lowest frequency after applying 1/r factor and attenuation factor)
+    // and making an array across frequency bins by putting in frequency dependence.
+      // SAW: REPLACE THIS CODE WITH WAIS PULSER MODEL
+    // SET THE SIGNAL USING vmmhz_max and vmmhz1m
+    sig1->GetVmMHz(vmmhz_max, vmmhz1m, 1e19, anita1->freq, anita1->NOTCH_MIN, anita1->NOTCH_MAX, vmmhz, Anita::NFREQ);  
+
+    // Here we need also to define the anita1->v_phases in DEGREES :/
+    for (int i=0; i<anita1->NFOUR/4; i++){
+        // SAW: REPLACE THIS CODE WITH WAIS PULSER MODEL
+      // USE THE PHASES FROM THE WAIS PULSER MODEL
+      
+      anita1->v_phases[i]=wais_pulser_phases[i]; //JS: edited
+    }
+
+    // VPOL
+    // Vector n_temp = interaction1->nnu.Cross(surfaceNormalWAIS);
+    // n_pol = n_temp.Cross(interaction1->nnu);
+
+    // HPOL 
+    n_pol = interaction1->nnu.Cross(surfaceNormalWAIS);
+    
+    n_pol = n_pol.Unit();
+
+
+
