@@ -531,8 +531,8 @@ int main(int argc,  char **argv) {
     //wais_pulser->fillFreqStuff(); //JS: edited
     //cout <<wais_pulser_mags[1]<< endl; //JS: edited
   // begin looping over NNU neutrinos doing the things
-   int a = 0;
-   //for (a = 1; a < run_no; a++) { //JS: trying to get it to do all runs at once
+   int a = 1;
+   for (a = 1; a < run_no; a++) { //JS: trying to get it to do all runs at once
    for (inu = 0; inu < NNU; inu++) {
 
     if (NNU >= 100) {
@@ -543,7 +543,7 @@ int main(int argc,  char **argv) {
       cout << inu << " neutrinos.  " << (double(inu) / double(NNU)) * 100 << "% complete.\n";
     
 
-    eventNumber=(UInt_t)(run_no)*NNU+inu; //replaced a where run_no was
+    eventNumber=(UInt_t)(a)*NNU+inu; //replaced a where run_no was
     
     // Set seed of all random number generators to be dependent on eventNumber
     gRandom->SetSeed(eventNumber+6e7);
@@ -1056,7 +1056,7 @@ n_pol = n_pol.Unit();
 
 } //END MAIN PROGRAM
 
-//} //JS
+} //JS
 
 void interrupt_signal_handler(int sig){
   signal(sig,  SIG_IGN);
